@@ -1,0 +1,289 @@
+{
+  "links": [
+    {
+      "href": "http://localhost:3000/collections",
+      "rel": "self",
+      "type": "application/json",
+      "title": "this document"
+    }
+  ],
+  "collections": [
+    {
+      "id": "LyonMetropole",
+      "title": "Lyon Metropole",
+      "collectionType": "3d-container",
+      "extent": {
+        "spatial": {
+          "bbox": [
+            4.7,
+            45.65,
+            -100,
+            5,
+            45.87,
+            1000
+          ],
+          "crs": "EPSG:4326"
+        }
+      },
+      "links": [
+        {
+          "title": "3D Buildings of Lyon",
+          "href": "http://localhost:3000/collections/LyonMetropole",
+          "rel": "self",
+          "type": "application/json"
+        }
+      ],
+      "content": [
+        {
+          "rel": "alternate",
+          "href": "https://dataset-dl.liris.cnrs.fr/three-d-tiles-lyon-metropolis/2018/Lyon_2018/tileset.json",
+          "type": "application/json+3dtiles",
+          "title": "citygml_3dtiles",
+          "variantIdentifier": "file"
+        }
+      ],
+      "children": [
+        
+    {
+      "id": "limonest",
+      "title": "Limonest",
+      "collectionType": "3d-container",
+      "extent": {
+        "spatial": {
+          "bbox": [
+            4.74,
+            45.80,
+            0,
+            4.8,
+            45.86,
+            800
+          ],
+          "crs": "EPSG:4326"
+        },
+        "temporal": "2015"
+      },
+      "links": [
+        {
+          "rel": "self",
+          "href": "http://localhost:3000/collections/limonest",
+          "type": "application/json",
+          "title": "Limonest"
+        }
+      ],
+      "content": [
+        {
+          "rel": "original",
+          "href": "https://download.data.grandlyon.com/files/grandlyon/imagerie/2015/maquette/LIMONEST_2015.zip",
+          "type": "application/citygml",
+          "title": "citygml",
+          "variantIdentifier": "file"
+        },
+        {
+          "rel": "alternate",
+          "href": "https://dataset-dl.liris.cnrs.fr/three-d-tiles-lyon-metropolis/2015/Limonest_2015/tileset.json",
+          "type": "application/json+3dtiles",
+          "title": "citygml_3dtiles",
+          "variantIdentifier": "file"
+        }
+      ],
+      "children": [
+        {
+          "id": "batiment_carl",
+          "title": "IFC Carl",
+          "collectionType": "3d-container",
+          "extent": {
+            "spatial": {
+              "bbox": [
+                1837781.252,
+                5180835.386,
+                0,
+                1837954.029525488,
+                5181033.658640625,
+                400
+              ],
+              "crs": "EPSG:3946"
+            },
+            "temporal": "2015"
+          },
+          "links": [
+            {
+              "rel": "self",
+              "href": "http://localhost:3000/collections/batiment_carl",
+              "type": "application/json",
+              "title": "batiment_carl"
+            }
+          ],
+          "content": [
+            {
+              "rel": "alternate",
+              "href": "https://dataset-dl.liris.cnrs.fr/three-d-tiles-lyon-metropolis/2018/IFC-Building/tileset.json",
+              "type": "application/json+3dtiles",
+              "title": "ifc_3dtiles",
+              "variantIdentifier": "file"
+            },
+            {
+              "rel": "alternate",
+              "href": "http://localhost:8000/assets/layer/tileset.json",
+              "type": "application/json+3dtiles",
+              "title": "geojson",
+              "variantIdentifier": "file"
+            },
+            {
+              "rel": "original",
+              "href": "https://download.data.grandlyon.com/files/grandlyon/imagerie/2015/maquette/LIMONEST_2015.zip",
+              "type": "application/citygml",
+              "title": "citygml",
+              "variantIdentifier": "GMLID=2855"
+            },
+            {
+              "rel": "alternate",
+              "href": "https://dataset-dl.liris.cnrs.fr/three-d-tiles-lyon-metropolis/2015/Limonest_2015/tileset.json",
+              "type": "application/json+3dtiles",
+              "title": "citygml_3dtiles",
+              "variantIdentifier": "TileID=3&Batch_ID=134"
+            },
+            {
+              "rel": "alternate",
+              "href": "influxdb",
+              "type": "application/sensor",
+              "title": "sensor",
+              "variantIdentifier": "SensorID=CARL_TAMB_HALL_MOY"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "villeurbanne",
+      "title": "Villeurbanne",
+      "collectionType": "3d-container",
+      "extent": {
+        "spatial": {
+          "bbox": [
+            1844500,
+            5173500,
+            -100,
+            1849500,
+            5178700,
+            800
+          ],
+          "crs": "EPSG:3946"
+        },
+        "temporal": "2018"
+      },
+      "links": [
+        {
+          "rel": "self",
+          "href": "http://localhost:3000/collections/villeurbanne",
+          "type": "application/json",
+          "title": "Villeurbanne"
+        }
+      ],
+      "content": [
+        {
+          "rel": "original",
+          "href": "https://download.data.grandlyon.com/files/grandlyon/imagerie/2018/maquette/VILLEURBANNE_2018.zip",
+          "type": "application/citygml",
+          "title": "citygml",
+          "variantIdentifier": "file"
+        },
+        {
+          "rel": "alternate",
+          "href": "https://dataset-dl.liris.cnrs.fr/three-d-tiles-lyon-metropolis/Villeurbanne_2018_TileSet/tileset.json",
+          "type": "application/json+3dtiles",
+          "title": "3dtiles",
+          "variantIdentifier": "file"
+        },
+        {
+          "rel": "alternate",
+          "href": "https://demo.liris.cnrs.fr/vcity/geodatadays/strabon/",
+          "type": "application/sparql",
+          "title": "CityGML as RDF",
+          "variantIdentifier": "vt:version_2018"
+        },
+        {
+          "rel": "alternate",
+          "href": "https://dataset-dl.liris.cnrs.fr/three-d-tiles-lyon-metropolis/2018/Villeurbanne_2018_point_cloud/tileset.json",
+          "type": "application/json+pnts",
+          "title": "PC as 3DTiles",
+          "variantIdentifier": "file"
+        }
+      ],
+      "children": [
+        {
+          "id": "batiment_doua",
+          "title": "Chaufferie doua",
+          "collectionType": "3d-container",
+          "extent": {
+            "spatial": {
+              "bbox": [
+                1845820,
+                5177430,
+                -100,
+                1845890,
+                5177499,
+                500
+              ],
+              "crs": "EPSG:3946"
+            },
+            "temporal": "2015"
+          },
+          "links": [
+            {
+              "rel": "self",
+              "href": "http://localhost:3000/collections/batiment_doua",
+              "type": "application/json",
+              "title": "batiment_doua"
+            }
+          ],
+          "content": [
+            {
+              "rel": "alternate",
+              "href": "https://dataset-dl.liris.cnrs.fr/three-d-tiles-lyon-metropolis/2018/ifc_chaufferie_doua/tileset.json",
+              "type": "application/json+3dtiles",
+              "title": "ifc_3dtiles",
+              "variantIdentifier": "file"
+            },
+            {
+              "rel": "original",
+              "href": "https://download.data.grandlyon.com/files/grandlyon/imagerie/2018/maquette/VILLEURBANNE_2018.zip",
+              "type": "application/citygml",
+              "title": "citygml",
+              "variantIdentifier": "GMLID=69266AE7"
+            },
+            {
+              "rel": "alternate",
+              "href": "https://dataset-dl.liris.cnrs.fr/three-d-tiles-lyon-metropolis/Villeurbanne_2018_TileSet/tileset.json",
+              "type": "application/json+3dtiles",
+              "title": "citygml_3dtiles",
+              "variantIdentifier": "GMLID=69266AE7"
+            },
+            {
+              "rel": "alternate",
+              "href": "https://demo.liris.cnrs.fr/vcity/geodatadays/strabon/",
+              "type": "application/sparql",
+              "title": "CityGML as RDF",
+              "variantIdentifier": "GMLID=69266AE7"
+            },
+            {
+              "rel": "alternate",
+              "href": "https://demo.liris.cnrs.fr/vcity/geodatadays/strabon/",
+              "type": "application/sparql",
+              "title": "IFC as RDF",
+              "variantIdentifier": "GUID=0AhY_q3Qr4ZgkcqnSHCY$3"
+            },
+            {
+              "rel": "alternate",
+              "href": "https://dataset-dl.liris.cnrs.fr/three-d-tiles-lyon-metropolis/2018/Villeurbanne_2018_point_cloud/tileset.json",
+              "type": "application/json+pnts",
+              "title": "PC as 3DTiles",
+              "variantIdentifier": "extent"
+            }
+          ]
+        }
+      ]
+    }
+      ]
+    }
+  ]
+}

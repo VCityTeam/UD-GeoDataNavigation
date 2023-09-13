@@ -1,0 +1,226 @@
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix geov:  <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/GeoVolumes/1.0/geovolumes/geovolumes#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+geov:BoundingRegion  a   owl:Class ;
+        rdfs:label       "BoundingRegion"@en ;
+        rdfs:subClassOf  geov:BoundingVolume .
+
+geov:Extent  a           owl:Class ;
+        rdfs:label       "Extent"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:TemporalExtent ;
+                           owl:onProperty     geov:Extent.temporal
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  geov:TemporalExtent ;
+                           owl:onProperty               geov:Extent.temporal
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:SpatialExtent ;
+                           owl:onProperty     geov:Extent.spatial
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  geov:SpatialExtent ;
+                           owl:onProperty               geov:Extent.spatial
+                         ] .
+
+geov:3DContainer.link
+        a            owl:ObjectProperty ;
+        rdfs:domain  geov:3DContainer ;
+        rdfs:label   "link"@en ;
+        rdfs:range   geov:Link .
+
+geov:Content  a          owl:Class ;
+        rdfs:label       "Content"@en ;
+        rdfs:subClassOf  geov:Link ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:Extent ;
+                           owl:onProperty     geov:Content.extent
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               geov:Extent ;
+                           owl:onProperty            geov:Content.extent ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] .
+
+geov:Link.type  a    owl:ObjectProperty ;
+        rdfs:domain  geov:Link ;
+        rdfs:label   "type"@en ;
+        rdfs:range   geov:MimeType .
+
+geov:Content.extent  a  owl:ObjectProperty ;
+        rdfs:domain  geov:Content ;
+        rdfs:label   "extent"@en ;
+        rdfs:range   geov:Extent .
+
+geov:3DContainer.children
+        a            owl:ObjectProperty ;
+        rdfs:domain  geov:3DContainer ;
+        rdfs:label   "children"@en ;
+        rdfs:range   geov:3DContainer .
+
+geov:Extent.temporal  a  owl:ObjectProperty ;
+        rdfs:domain  geov:Extent ;
+        rdfs:label   "temporal"@en ;
+        rdfs:range   geov:TemporalExtent .
+
+geov:3DContainer.extent
+        a            owl:ObjectProperty ;
+        rdfs:domain  geov:3DContainer ;
+        rdfs:label   "extent"@en ;
+        rdfs:range   geov:Extent .
+
+geov:BoundingSphere  a   owl:Class ;
+        rdfs:label       "Bounding Sphere"@en ;
+        rdfs:subClassOf  geov:BoundingVolume .
+
+geov:Collections.collections
+        a            owl:ObjectProperty ;
+        rdfs:domain  geov:Collections ;
+        rdfs:label   "collections"@en ;
+        rdfs:range   geov:3DContainer .
+
+geov:SpatialExtent  a    owl:Class ;
+        rdfs:label       "SpatialExtent"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:BoundingVolume ;
+                           owl:onProperty     geov:SpatialExtent.boundingVolume
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               geov:BoundingVolume ;
+                           owl:onProperty            geov:SpatialExtent.boundingVolume ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] .
+
+geov:MimeType  a         rdfs:Datatype ;
+        rdfs:label       "MimeType"@en ;
+        skos:definition  "Used to represent basic Mime types:\r\nhttps://www.iana.org/assignments/media-types/media-types.xhtml"@en .
+
+geov:SpatialExtent.boundingVolume
+        a            owl:ObjectProperty ;
+        rdfs:domain  geov:SpatialExtent ;
+        rdfs:label   "boundingVolume"@en ;
+        rdfs:range   geov:BoundingVolume .
+
+geov:BoundingBox  a      owl:Class ;
+        rdfs:label       "BoundingBox"@en ;
+        rdfs:subClassOf  geov:BoundingVolume .
+
+geov:Extent.spatial  a  owl:ObjectProperty ;
+        rdfs:domain  geov:Extent ;
+        rdfs:label   "spatial"@en ;
+        rdfs:range   geov:SpatialExtent .
+
+geov:TemporalExtent  a  owl:Class ;
+        rdfs:label  "TemporalExtent"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( geov:BoundingBox geov:BoundingRegion geov:BoundingSphere )
+] .
+
+geov:Collections.link
+        a            owl:ObjectProperty ;
+        rdfs:domain  geov:Collections ;
+        rdfs:label   "link"@en ;
+        rdfs:range   geov:Link .
+
+geov:Link  a             owl:Class ;
+        rdfs:label       "Link"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:MimeType ;
+                           owl:onProperty     geov:Link.type
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  geov:MimeType ;
+                           owl:onProperty               geov:Link.type
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:Rel ;
+                           owl:onProperty     geov:Link.rel
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  geov:Rel ;
+                           owl:onProperty               geov:Link.rel
+                         ] .
+
+geov:Collections  a      owl:Class ;
+        rdfs:label       "Collections"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:Link ;
+                           owl:onProperty     geov:Collections.link
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  geov:Link ;
+                           owl:onProperty               geov:Collections.link
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:3DContainer ;
+                           owl:onProperty     geov:Collections.collections
+                         ] .
+
+geov:3DContainer  a      owl:Class ;
+        rdfs:label       "3DContainer"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:Extent ;
+                           owl:onProperty     geov:3DContainer.extent
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               geov:Extent ;
+                           owl:onProperty            geov:3DContainer.extent ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:Link ;
+                           owl:onProperty     geov:3DContainer.link
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  geov:Link ;
+                           owl:onProperty               geov:3DContainer.link
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:3DContainer ;
+                           owl:onProperty     geov:3DContainer.children
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:Content ;
+                           owl:onProperty     geov:3DContainer.content
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  geov:Content ;
+                           owl:onProperty               geov:3DContainer.content
+                         ] .
+
+geov:BoundingVolume  a  owl:Class ;
+        rdfs:label  "BoundingVolume"@en .
+
+geov:Link.rel  a     owl:ObjectProperty ;
+        rdfs:domain  geov:Link ;
+        rdfs:label   "rel"@en ;
+        rdfs:range   geov:Rel .
+
+geov:3DContainer.content
+        a            owl:ObjectProperty ;
+        rdfs:domain  geov:3DContainer ;
+        rdfs:label   "content"@en ;
+        rdfs:range   geov:Content .
+
+<https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/GeoVolumes/1.0/geovolumes/geovolumes>
+        a            owl:Ontology ;
+        rdfs:label   "GeoVolumes"@en ;
+        owl:imports  <http://def.isotc211.org/iso19150/-2/2012/base> .
+
+geov:Rel  a              rdfs:Datatype ;
+        rdfs:label       "Rel"@en ;
+        skos:definition  "Used to represent different link relations:\r\nhttps://www.iana.org/assignments/link-relations/link-relations.xml"@en .

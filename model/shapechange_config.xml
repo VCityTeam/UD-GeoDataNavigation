@@ -1,0 +1,69 @@
+<ShapeChangeConfiguration xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1" xmlns:sc="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1 http://shapechange.net/resources/schema/ShapeChangeConfiguration.xsd">
+  <input>
+    <parameter name="inputModelType" value="EA7"/>
+    <parameter name="inputFile" value="./model/geovolume.eapx"/>
+    <!-- <parameter name="inputModelType" value="XMI10"/>
+    <parameter name="inputFile" value="./model/geovolume.xmi"/> -->
+    <parameter name="appSchemaNamespaceRegex" value="https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/GeoVolumes/.*"/>
+    <parameter name="checkingConstraints" value="disabled"/>
+    <xi:include href="http://shapechange.net/resources/config/StandardAliases.xml"/>
+    <stereotypeAliases>
+      <StereotypeAlias wellknown="property" alias="String"/>
+    </stereotypeAliases>
+  </input>
+  <log>
+    <parameter name="reportLevel" value="WARNING" />
+    <parameter name="logFile" value="model/log.xml" />
+  </log>
+  <targets>
+    <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled">
+      <targetParameter name="outputDirectory" value="./model"/>
+      <targetParameter name="defaultEncodingRule" value="GeoVolumes_Encoding_Rules"/>
+      <targetParameter name="URIbase" value="https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/GeoVolumes/1.0/geovolumes"/>
+      <targetParameter name="language" value="en"/>
+      <xi:include href="https://shapechange.net/resources/config/StandardNamespaces-owl.xml"/>
+      <descriptorTargets>
+        <DescriptorTarget target="rdfs:label" template="[[name]]"/>
+        <DescriptorTarget target="skos:definition" template="[[definition]]"/>
+        <DescriptorTarget target="rdfs:comment" template="[[description]]"/>
+      </descriptorTargets>
+      <xi:include href="https://shapechange.net/resources/config/StandardMapEntries_iso19103-owl.xml"/>
+      <rules>
+        <EncodingRule name="GeoVolumes_Encoding_Rules">
+          <rule name="rule-owl-pkg-ontologyName-iso191502"/>
+          <!-- <rule name="rule-owl-pkg-ontologyName-code"/> -->
+          <!-- <rule name="rule-owl-pkg-singleOntologyPerSchema"/> -->
+          <rule name="rule-owl-pkg-importISO191502Base"/>
+          <rule name="rule-owl-cls-iso191502IsAbstract"/>
+          <!-- <rule name="rule-owl-cls-enumerationAsCodelist"/> -->
+          <rule name="rule-owl-cls-iso191502Enumeration"/>
+          <rule name="rule-owl-cls-encode-featuretypes"/>
+          <rule name="rule-owl-cls-encode-objecttypes"/>
+          <rule name="rule-owl-cls-encode-mixintypes"/>
+          <rule name="rule-owl-cls-encode-datatypes"/>
+          <rule name="rule-owl-cls-encode-basictypes"/>
+          <rule name="rule-owl-cls-codelist-external"/>
+          <!-- <rule name="rule-owl-cls-codelist-19150-2"/> -->
+          <!-- <rule name="rule-owl-cls-codelist-19150-2-skos-collection"/> -->
+          <rule name="rule-owl-cls-generalization"/>
+          <rule name="rule-owl-cls-disjoint-classes"/>
+          <!-- <rule name="rule-owl-cls-union"/> -->
+          <rule name="rule-owl-prop-general"/>
+          <rule name="rule-owl-prop-iso191502-naming"/>
+          <rule name="rule-owl-prop-localScopeAll"/>
+          <!-- <rule name="rule-owl-prop-globalScopeAttributes"/> -->
+          <!-- <rule name="rule-owl-prop-globalScopeByUniquePropertyName"/> -->
+          <!-- <rule name="rule-owl-prop-globalScopeByConversionParameter"/> -->
+          <rule name="rule-owl-prop-multiplicityAsQualifiedCardinalityRestriction"/>
+          <!-- <rule name="rule-owl-prop-multiplicityAsUnqualifiedCardinalityRestriction"/> -->
+          <rule name="rule-owl-prop-voidable-as-minCardinality0"/>
+          <rule name="rule-owl-prop-range-global"/>
+          <rule name="rule-owl-prop-range-local-withUniversalQuantification"/>
+          <rule name="rule-owl-prop-mapping-compare-specifications"/>
+          <!-- <rule name="rule-owl-all-constraints-humanReadableTextOnly"/> -->
+          <rule name="rule-owl-all-constraints-byConstraintMapping"/>
+        </EncodingRule>
+      </rules>
+    </TargetOwl>
+  </targets>
+</ShapeChangeConfiguration>
