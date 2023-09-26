@@ -1,0 +1,71 @@
+base: "https://github.com/VCityTeam/UD-GeoDataNavigation/test1#"
+  
+prefixes:
+  data: "https://github.com/VCityTeam/UD-GeoDataNavigation/test1#"
+  geov: "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/GeoVolumes/1.0/geovolumes/geovolumes#"
+
+mappings:
+  collections:
+    sources:
+      - ['data.json~jsonpath', '$']
+    s:
+    po: 
+      - [a, geov:Collection]
+      - [geov:links, data:$(links.*.href)$(links.*.rel)~iri]
+      - [geov:collections, data:$(collections.*.id)~iri]
+
+  3D_containers:
+    sources:
+      - ['data.json~jsonpath', '$..collections[*]']
+      - ['data.json~jsonpath', '$..children[*]']
+    s: data:$(id)
+    po:
+      - [a, geov:3DContainer]
+      - [geov:title, $(title)]
+      - [geov:collectionType, $(collectionType)]
+      - [geov:link, data:$(links.*.href)$(links.*.rel)~iri]
+      - [geov:spatial, data:spatial_extent_$(extent.id)~iri]
+      - [geov:temporal, data:temporal_extent_$(extent.id)~iri]
+      - [geov:content, data:$(content.*.href)$(content.*.variantIdentifier)~iri]
+      - [geov:children, data:$(children.*.id)~iri]
+
+  links:
+    sources:
+      - ['data.json~jsonpath', '$..links[*]']
+    s: data:$(href)$(rel)
+    po:
+      - [a, geov:Link]
+      - [geov:href, $(href), xsd:uri]
+      - [geov:rel, $(rel), geov:Rel]
+      - [geov:type, $(type), geov:MimeType]
+      - [geov:title, $(title)]
+
+  spatial_extents:
+    sources:
+      - ['data.json~jsonpath', '$..[?(@.spatial)]']
+    s: data:spatial_extent_$(id)
+    po:
+      - [a, geov:SpatialExtent]
+      - [geov:bbox, $(spatial.bbox)]
+      - [geov:crs, $(spatial.crs)]
+
+  temporal_extents:
+    sources:
+      - ['data.json~jsonpath', '$..[?(@.temporal)]']
+    s: data:temporal_extent_$(id)
+    po:
+      - [a, geov:TemporalExtent]
+      - [geov:interval, $(temporal)]
+      - [geov:trs, $(trs)]
+
+  content:
+    sources:
+      - ['data.json~jsonpath', '$..content[*]']
+    s: data:$(href)$(variantIdentifier)
+    po:
+      - [a, geov:Content]
+      - [geov:title, $(title)]
+      - [geov:rel, $(rel), geov:Rel]
+      - [geov:href, $(href), xsd:uri]
+      - [geov:type, $(type), geov:MimeType]
+      - [geov:variantIdentifier, $(variantIdentifier)]
