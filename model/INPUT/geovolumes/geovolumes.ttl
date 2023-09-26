@@ -28,26 +28,8 @@ geov:BoundingRegion  a   owl:Class ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] .
 
-geov:Extent  a           owl:Class ;
-        rdfs:label       "Extent"@en ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  geov:TemporalExtent ;
-                           owl:onProperty     geov:temporal
-                         ] ;
-        rdfs:subClassOf  [ a                            owl:Restriction ;
-                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
-                           owl:onClass                  geov:TemporalExtent ;
-                           owl:onProperty               geov:temporal
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  geov:SpatialExtent ;
-                           owl:onProperty     geov:spatial
-                         ] ;
-        rdfs:subClassOf  [ a                            owl:Restriction ;
-                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
-                           owl:onClass                  geov:SpatialExtent ;
-                           owl:onProperty               geov:spatial
-                         ] .
+geov:Extent  a      owl:Class ;
+        rdfs:label  "Extent"@en .
 
 geov:3DContainer.link
         a            owl:ObjectProperty ;
@@ -59,13 +41,22 @@ geov:Content  a          owl:Class ;
         rdfs:label       "Content"@en ;
         rdfs:subClassOf  geov:Link ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  geov:Extent ;
-                           owl:onProperty     geov:Content.extent
+                           owl:allValuesFrom  geov:TemporalExtent ;
+                           owl:onProperty     geov:Content.temporal
                          ] ;
-        rdfs:subClassOf  [ a                         owl:Restriction ;
-                           owl:onClass               geov:Extent ;
-                           owl:onProperty            geov:Content.extent ;
-                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  geov:TemporalExtent ;
+                           owl:onProperty               geov:Content.temporal
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:SpatialExtent ;
+                           owl:onProperty     geov:Content.spatial
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  geov:SpatialExtent ;
+                           owl:onProperty               geov:Content.spatial
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
@@ -77,18 +68,23 @@ geov:Content  a          owl:Class ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] .
 
-geov:Content.extent  a  owl:ObjectProperty ;
-        rdfs:domain  geov:Content ;
-        rdfs:label   "extent"@en ;
-        rdfs:range   geov:Extent .
-
 geov:collections  a  owl:ObjectProperty ;
         rdfs:label  "collections"@en ;
         rdfs:range  geov:3DContainer .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( geov:BoundingBox geov:BoundingRegion geov:BoundingSphere )
+] .
+
 geov:crs  a         owl:DatatypeProperty ;
         rdfs:label  "crs"@en ;
         rdfs:range  xsd:string .
+
+geov:Content.temporal
+        a            owl:ObjectProperty ;
+        rdfs:domain  geov:Content ;
+        rdfs:label   "temporal"@en ;
+        rdfs:range   geov:TemporalExtent .
 
 geov:description  a  owl:DatatypeProperty ;
         rdfs:label  "description"@en ;
@@ -97,12 +93,6 @@ geov:description  a  owl:DatatypeProperty ;
 geov:title  a       owl:DatatypeProperty ;
         rdfs:label  "title"@en ;
         rdfs:range  xsd:string .
-
-geov:3DContainer.extent
-        a            owl:ObjectProperty ;
-        rdfs:domain  geov:3DContainer ;
-        rdfs:label   "extent"@en ;
-        rdfs:range   geov:Extent .
 
 geov:children  a    owl:ObjectProperty ;
         rdfs:label  "children"@en ;
@@ -134,10 +124,6 @@ geov:extent  a      owl:DatatypeProperty ;
         rdfs:label  "extent"@en ;
         rdfs:range  xsd:double .
 
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( geov:BoundingBox geov:BoundingRegion geov:BoundingSphere )
-] .
-
 geov:id  a          owl:DatatypeProperty ;
         rdfs:label  "id"@en ;
         rdfs:range  xsd:string .
@@ -146,35 +132,37 @@ geov:interval  a    owl:DatatypeProperty ;
         rdfs:label  "interval"@en ;
         rdfs:range  xsd:string .
 
-geov:SpatialExtent  a    owl:Class ;
-        rdfs:label       "SpatialExtent"@en ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  geov:BoundingVolume ;
-                           owl:onProperty     geov:boundingVolume
-                         ] ;
-        rdfs:subClassOf  [ a                         owl:Restriction ;
-                           owl:onClass               geov:BoundingVolume ;
-                           owl:onProperty            geov:boundingVolume ;
-                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     geov:crs
-                         ] ;
-        rdfs:subClassOf  [ a                         owl:Restriction ;
-                           owl:onClass               xsd:string ;
-                           owl:onProperty            geov:crs ;
-                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
-                         ] .
+geov:SpatialExtent  a     owl:Class ;
+        rdfs:label        "SpatialExtent"@en ;
+        rdfs:subClassOf   geov:Extent ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  geov:BoundingVolume ;
+                            owl:onProperty     geov:boundingVolume
+                          ] ;
+        rdfs:subClassOf   [ a                         owl:Restriction ;
+                            owl:onClass               geov:BoundingVolume ;
+                            owl:onProperty            geov:boundingVolume ;
+                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                          ] ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  xsd:string ;
+                            owl:onProperty     geov:crs
+                          ] ;
+        rdfs:subClassOf   [ a                         owl:Restriction ;
+                            owl:onClass               xsd:string ;
+                            owl:onProperty            geov:crs ;
+                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                          ] ;
+        owl:disjointWith  geov:TemporalExtent .
+
+geov:boundingVolume  a  owl:ObjectProperty ;
+        rdfs:label  "boundingVolume"@en ;
+        rdfs:range  geov:BoundingVolume .
 
 geov:MimeType  a         rdfs:Datatype ;
         rdfs:label       "MimeType"@en ;
         owl:oneOf        ( "application/json" "application/json-3dtiles" "application/json-i3s" "text/html" ) ;
         skos:definition  "Used to represent basic Mime types:\r\nhttps://www.iana.org/assignments/media-types/media-types.xhtml"@en .
-
-geov:boundingVolume  a  owl:ObjectProperty ;
-        rdfs:label  "boundingVolume"@en ;
-        rdfs:range  geov:BoundingVolume .
 
 geov:BoundingBox  a      owl:Class ;
         rdfs:label       "BoundingBox"@en ;
@@ -200,6 +188,7 @@ geov:BoundingBox  a      owl:Class ;
 
 geov:TemporalExtent  a   owl:Class ;
         rdfs:label       "TemporalExtent"@en ;
+        rdfs:subClassOf  geov:Extent ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     geov:trs
@@ -222,6 +211,12 @@ geov:type  a        owl:ObjectProperty ;
         rdfs:label  "type"@en ;
         rdfs:range  geov:MimeType .
 
+geov:3DContainer.temporal
+        a            owl:ObjectProperty ;
+        rdfs:domain  geov:3DContainer ;
+        rdfs:label   "temporal"@en ;
+        rdfs:range   geov:TemporalExtent .
+
 geov:content  a     owl:ObjectProperty ;
         rdfs:label  "content"@en ;
         rdfs:range  geov:Content .
@@ -230,44 +225,32 @@ geov:itemType  a    owl:DatatypeProperty ;
         rdfs:label  "itemType"@en ;
         rdfs:range  xsd:string .
 
-geov:Collections.link
+geov:Collection.link
         a            owl:ObjectProperty ;
-        rdfs:domain  geov:Collections ;
+        rdfs:domain  geov:Collection ;
         rdfs:label   "link"@en ;
         rdfs:range   geov:Link .
 
 geov:Link  a             owl:Class ;
         rdfs:label       "Link"@en ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  geov:Rel ;
-                           owl:onProperty     geov:rel
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     geov:title
                          ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  geov:MimeType ;
                            owl:onProperty               geov:type
                          ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:anyURI ;
-                           owl:onProperty     geov:href
-                         ] ;
-        rdfs:subClassOf  [ a                         owl:Restriction ;
-                           owl:onClass               xsd:string ;
-                           owl:onProperty            geov:hreflang ;
-                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     geov:title
-                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  geov:Rel ;
                            owl:onProperty               geov:rel
                          ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  geov:MimeType ;
-                           owl:onProperty     geov:type
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            geov:title ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:anyURI ;
@@ -276,37 +259,56 @@ geov:Link  a             owl:Class ;
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:string ;
-                           owl:onProperty            geov:title ;
+                           owl:onProperty            geov:hreflang ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     geov:hreflang
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:MimeType ;
+                           owl:onProperty     geov:type
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:Rel ;
+                           owl:onProperty     geov:rel
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     geov:href
                          ] .
 
-geov:Collections  a      owl:Class ;
-        rdfs:label       "Collections"@en ;
+geov:Collection  a      owl:Class ;
+        rdfs:label       "Collection"@en ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  geov:Link ;
-                           owl:onProperty     geov:Collections.link
+                           owl:onProperty     geov:Collection.link
                          ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  geov:Link ;
-                           owl:onProperty               geov:Collections.link
+                           owl:onProperty               geov:Collection.link
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  geov:3DContainer ;
                            owl:onProperty     geov:collections
                          ] .
 
+geov:3DContainer.spatial
+        a            owl:ObjectProperty ;
+        rdfs:domain  geov:3DContainer ;
+        rdfs:label   "spatial"@en ;
+        rdfs:range   geov:SpatialExtent .
+
 geov:href  a        owl:DatatypeProperty ;
         rdfs:label  "href"@en ;
         rdfs:range  xsd:anyURI .
 
-geov:spatial  a     owl:ObjectProperty ;
-        rdfs:label  "spatial"@en ;
-        rdfs:range  geov:SpatialExtent .
+geov:Content.spatial  a  owl:ObjectProperty ;
+        rdfs:domain  geov:Content ;
+        rdfs:label   "spatial"@en ;
+        rdfs:range   geov:SpatialExtent .
 
 geov:collectionType  a  owl:DatatypeProperty ;
         rdfs:label  "collectionType"@en ;
@@ -320,20 +322,12 @@ geov:minItems  a    owl:DatatypeProperty ;
         rdfs:label  "minItems"@en ;
         rdfs:range  xsd:integer .
 
-geov:temporal  a    owl:ObjectProperty ;
-        rdfs:label  "temporal"@en ;
-        rdfs:range  geov:TemporalExtent .
-
 geov:3DContainer  a      owl:Class ;
         rdfs:label       "3DContainer"@en ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
-                           owl:onClass               geov:Extent ;
-                           owl:onProperty            geov:3DContainer.extent ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            geov:description ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  geov:Extent ;
-                           owl:onProperty     geov:3DContainer.extent
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  geov:Link ;
@@ -341,8 +335,26 @@ geov:3DContainer  a      owl:Class ;
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:string ;
-                           owl:onProperty            geov:description ;
+                           owl:onProperty            geov:id ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:TemporalExtent ;
+                           owl:onProperty     geov:3DContainer.temporal
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  geov:SpatialExtent ;
+                           owl:onProperty     geov:3DContainer.spatial
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            geov:collectionType ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  geov:SpatialExtent ;
+                           owl:onProperty               geov:3DContainer.spatial
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
@@ -352,54 +364,49 @@ geov:3DContainer  a      owl:Class ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     geov:collectionType
                          ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            geov:title ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     geov:title
                          ] ;
-        rdfs:subClassOf  [ a                         owl:Restriction ;
-                           owl:onClass               xsd:string ;
-                           owl:onProperty            geov:id ;
-                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
-                         ] ;
-        rdfs:subClassOf  [ a                            owl:Restriction ;
-                           owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
-                           owl:onClass                  geov:Link ;
-                           owl:onProperty               geov:3DContainer.link
-                         ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     geov:itemType
+                           owl:onProperty     geov:id
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  geov:3DContainer ;
                            owl:onProperty     geov:children
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     geov:id
-                         ] ;
-        rdfs:subClassOf  [ a                         owl:Restriction ;
-                           owl:onClass               xsd:string ;
-                           owl:onProperty            geov:title ;
-                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
-                         ] ;
-        rdfs:subClassOf  [ a                         owl:Restriction ;
-                           owl:onClass               xsd:string ;
-                           owl:onProperty            geov:itemType ;
-                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  geov:Content ;
                            owl:onProperty     geov:content
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  geov:TemporalExtent ;
+                           owl:onProperty               geov:3DContainer.temporal
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  geov:Link ;
+                           owl:onProperty               geov:3DContainer.link
                          ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  geov:Content ;
                            owl:onProperty               geov:content
                          ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     geov:itemType
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:string ;
-                           owl:onProperty            geov:collectionType ;
+                           owl:onProperty            geov:itemType ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] .
 
