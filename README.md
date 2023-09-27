@@ -22,7 +22,7 @@ A generic methodology for creating visually integrated views of 3D geospatial da
 # Reproducibility
 
 ## Repository setup
-1. Clone the repository and initialize the UD-Viz framework.
+1. Clone the repository and initialize the UD-Viz framework submodule.
 ```
 git clone https://github.com/VCityTeam/UD-GeoDataNavigation.git
 cd UD-GeoDataNavigation

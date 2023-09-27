@@ -1,0 +1,3 @@
+[submodule "udviz-context/UD-Viz"]
+	path = udviz-context/UD-Viz
+	url = https://github.com/VCityTeam/UD-Viz.git

@@ -1,0 +1,79 @@
+{
+  "height": 500,
+  "width": 500,
+  "fontSize": 6,
+  "queries": [
+    {
+      "title": "Show Full Workspace",
+      "formats": {
+        "graph": "Graph"
+      },
+      "filepath": "./assets/queries/workspace.rq"
+    },
+    {
+      "title": "Show Versions and VersionTransitions",
+      "formats": {
+        "graph": "Graph"
+      },
+      "filepath": "./assets/queries/scenarios.rq"
+    },
+    {
+      "title": "Show Scenario 1",
+      "formats": {
+        "graph": "Graph"
+      },
+      "filepath": "./assets/queries/scenario1.rq"
+    },
+    {
+      "title": "Show Scenario 2",
+      "formats": {
+        "graph": "Graph"
+      },
+      "filepath": "./assets/queries/scenario2.rq"
+    },
+    {
+      "title": "Show Transition 2009-2012",
+      "formats": {
+        "graph": "Graph"
+      },
+      "filepath": "./assets/queries/transition2009-2012.rq"
+    }
+  ],
+  "namespaceLabels": {
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#": "rdf",
+    "http://www.w3.org/2000/01/rdf-schema#": "rdfs",
+    "http://www.w3.org/2002/07/owl#": "owl",
+    "http://www.w3.org/2001/XMLSchema#": "xsd",
+    "https://w3id.org/list#": "list",
+    "http://www.w3.org/2004/02/skos/core#": "skos",
+    "http://www.opengis.net/gml#": "gml",
+    "http://www.opengis.net/ont/gml#": "gmlowl",
+    "http://www.opengis.net/def/uom/OGC/1.0/": "units",
+    "http://www.opengis.net/ont/geosparql#": "geo",
+    "http://www.opengis.net/def/function/geosparql/": "geof",
+    "http://strdf.di.uoa.gr/ontology#": "strdf",
+    "http://www.w3.org/2006/time#": "time",
+    "http://www.w3.org/1999/xlink#": "xlink",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/2.0/core#": "core2",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/2.0/building#": "bldg2",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/core#": "core3",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/construction#": "con3",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/building#": "bldg3",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/versioning#": "vers",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Workspace/3.0/workspace#": "wksp",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Workspace/3.0/transactiontypes#": "type",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/GratteCiel_Workspace_2009_2018/3.0/GratteCiel_2009_2018_Workspace#": "ws",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/GratteCiel_Workspace_2009_2018/3.0/GratteCiel_2009_split#": "v2009",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/GratteCiel_Workspace_2009_2018/3.0/GratteCiel_2009_alt_split#": "v2009b",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/GratteCiel_Workspace_2009_2018/3.0/GratteCiel_2012_split#": "v2012",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/GratteCiel_Workspace_2009_2018/3.0/GratteCiel_2012_alt_split#": "v2012b",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/GratteCiel_Workspace_2009_2018/3.0/GratteCiel_2015_split#": "v2015",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/GratteCiel_Workspace_2009_2018/3.0/GratteCiel_2018_split#": "v2018",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/GratteCiel_Workspace_2009_2018/3.0/Transition_2009_2012#": "vt2009_2012",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/GratteCiel_Workspace_2009_2018/3.0/Transition_2009_2009b#": "vt2009_2009b",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/GratteCiel_Workspace_2009_2018/3.0/Transition_2009b_2012b#": "vt2009b_2012b",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/GratteCiel_Workspace_2009_2018/3.0/Transition_2012b_2015#": "vt2012b_2015",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/GratteCiel_Workspace_2009_2018/3.0/Transition_2012_2015#": "vt2012_2015",
+    "https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/GratteCiel_Workspace_2009_2018/3.0/Transition_2015_2018#": "vt2015_2018"
+  }
+}

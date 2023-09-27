@@ -1,0 +1,8 @@
+{
+  "icon_path": "./assets/svg/help.svg",
+  "htmlPaths": [
+    "./assets/html/contribute.html",
+    "./assets/html/WorkspaceUserGuide.html",
+    "./assets/html/camera.html"
+  ]
+}
