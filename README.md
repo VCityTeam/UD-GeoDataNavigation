@@ -92,6 +92,7 @@ How to install and run the UD-Viz based UD-GeoDataNavigation demo.
 ### Pre-requisites 
 
 * [Install Docker](https://docs.docker.com/engine/install/)
+* Install node/npm use the versions recommended by the [UD-Viz documentation](https://github.com/VCityTeam/UD-Viz#getting-started)
 
 ### Component Setup
 1. To configure the demo and the components that support it create a `.env` file at the root of this repository. The arguments in this file will be used by docker compose.
