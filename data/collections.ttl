@@ -1,9 +1,11 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sd: <http://www.w3.org/ns/sparql-service-description#> .
+@prefix v: <http://rdf.data-vocabulary.org/#> .
 @prefix data: <https://github.com/VCityTeam/UD-GeoDataNavigation/test1#> .
 @prefix geov: <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/GeoVolumes/1.0/geovolumes/geovolumes#> .
 
-_:b6_0 rdf:type geov:Collection ;
+_:b1_0 rdf:type geov:Collection ;
 	geov:links data:http%3A%2F%2Flocalhost%3A3000%2Fcollectionsself ;
 	geov:collections data:LyonMetropole .
 
@@ -87,23 +89,23 @@ data:http%3A%2F%2Flocalhost%3A3000%2Fcollections%2Fbatiment_douaself rdf:type ge
 	geov:title "batiment_doua" .
 
 data:spatial_extent_0 rdf:type geov:SpatialExtent ;
-	geov:bbox "4.7", "45.65", "-100", "5", "45.87", "1000" ;
+	geov:bbox "[4.7, 45.65, -100, 5, 45.87, 1000]" ;
 	geov:crs "EPSG:4326" .
 
 data:spatial_extent_1 rdf:type geov:SpatialExtent ;
-	geov:bbox "4.74", "45.8", "0", "4.8", "45.86", "800" ;
+	geov:bbox "[4.74, 45.8, 0, 4.8, 45.86, 800]" ;
 	geov:crs "EPSG:4326" .
 
 data:spatial_extent_2 rdf:type geov:SpatialExtent ;
-	geov:bbox "1837781.252", "5180835.386", "0", "1837954.029525488", "5181033.658640625", "400" ;
+	geov:bbox "[1837781.252, 5180835.386, 0, 1837954.02952548,5181033.658640625, 400]" ;
 	geov:crs "EPSG:3946" .
 
 data:spatial_extent_3 rdf:type geov:SpatialExtent ;
-	geov:bbox "1844500", "5173500", "-100", "1849500", "5178700", "800" ;
+	geov:bbox "[1844500, 5173500, -100, 1849500, 5178700, 800]" ;
 	geov:crs "EPSG:3946" .
 
 data:spatial_extent_4 rdf:type geov:SpatialExtent ;
-	geov:bbox "1845820", "5177430", "-100", "1845890", "5177499", "500" ;
+	geov:bbox "[1845820, 5177430, -100, 1845890, 5177499, 500]" ;
 	geov:crs "EPSG:3946" .
 
 data:temporal_extent_1 rdf:type geov:TemporalExtent ;
