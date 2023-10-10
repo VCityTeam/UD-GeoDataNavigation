@@ -1,32 +1,35 @@
 /** @format */
 
-import * as udvizBrowser from "@ud-viz/browser";
+import { loadMultipleJSON, initScene } from "@ud-viz/utils_browser";
+import * as proj4 from "proj4";
+import * as itowns from "itowns";
+import css from "./style.css";
 /* eslint-disable no-new */
 
-udvizBrowser.FileUtil.loadMultipleJSON([
-  '../assets/config/all_widget.json',
-  '../assets/config/extent_lyon.json',
-  '../assets/config/frame3D_planars.json',
-  '../assets/config/layer/3DTiles.json',
-  '../assets/config/layer/base_maps.json',
-  '../assets/config/layer/elevation.json',
-  '../assets/config/styles.json',
-  '../assets/config/widget/about.json',
-  '../assets/config/widget/help.json',
-  '../assets/config/widget/temporal.json',
-  '../assets/config/widget/sparql_widget.json',
-  '../assets/config/server/sparql_server.json'
+loadMultipleJSON([
+  "../assets/config/all_widget.json",
+  "../assets/config/extent_lyon.json",
+  "../assets/config/frame3D_planars.json",
+  "../assets/config/layer/3DTiles.json",
+  "../assets/config/layer/base_maps.json",
+  "../assets/config/layer/elevation.json",
+  "../assets/config/styles.json",
+  "../assets/config/widget/about.json",
+  "../assets/config/widget/help.json",
+  "../assets/config/widget/temporal.json",
+  "../assets/config/widget/sparql_widget.json",
+  "../assets/config/server/sparql_server.json",
 ]).then((configs) => {
   // http://proj4js.org/
   // define a projection as a string and reference it that way
   // the definition of the projection should be in config TODO_ISSUE
-  udvizBrowser.proj4.default.defs(
+  proj4.default.defs(
     configs["extent_lyon"].crs,
     "+proj=lcc +lat_1=45.25 +lat_2=46.75" +
       " +lat_0=46 +lon_0=3 +x_0=1700000 +y_0=5200000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
   );
 
-  const extent = new udvizBrowser.itowns.Extent(
+  const extent = new itowns.Extent(
     configs["extent_lyon"].crs,
     parseInt(configs["extent_lyon"].west),
     parseInt(configs["extent_lyon"].east),
@@ -34,107 +37,53 @@ udvizBrowser.FileUtil.loadMultipleJSON([
     parseInt(configs["extent_lyon"].north)
   );
 
-  const app = new udvizBrowser.AllWidget(
-    extent,
-    configs["all_widget"],
-    configs["frame3D_planars"][0]
+  // create a itowns planar view
+  const viewDomElement = document.createElement("div");
+  viewDomElement.classList.add("full_screen");
+  document.body.appendChild(viewDomElement);
+  const view = new itowns.PlanarView(viewDomElement, extent);
+
+  // init scene 3D
+  initScene(view.camera.camera3D, view.mainLoop.gfxEngine.renderer, view.scene);
+
+  view.addLayer(
+    new itowns.ColorLayer(configs["base_maps"][0]["layer_name"], {
+      updateStrategy: {
+        type: itowns.STRATEGY_DICHOTOMY,
+        options: {},
+      },
+      source: new itowns.WMSSource({
+        extent: extent,
+        name: configs["base_maps"][0]["name"],
+        url: configs["base_maps"][0]["url"],
+        version: configs["base_maps"][0]["version"],
+        crs: extent.crs,
+        format: configs["base_maps"][0]["format"],
+      }),
+      transparent: true,
+    })
   );
 
-  const frame3DPlanar = app.getFrame3DPlanar();
-
-  // /// ADD LAYERS
-  udvizBrowser.add3DTilesLayers(
-    configs["3DTiles"],
-    frame3DPlanar.layerManager,
-    frame3DPlanar.itownsView
+  const isTextureFormat =
+    configs["elevation"]["format"] == "image/jpeg" ||
+    configs["elevation"]["format"] == "image/png";
+  view.addLayer(
+    new itowns.ElevationLayer(configs["elevation"]["layer_name"], {
+      useColorTextureElevation: isTextureFormat,
+      colorTextureElevationMinZ: isTextureFormat
+        ? configs["elevation"]["colorTextureElevationMinZ"]
+        : null,
+      colorTextureElevationMaxZ: isTextureFormat
+        ? configs["elevation"]["colorTextureElevationMaxZ"]
+        : null,
+      source: new itowns.WMSSource({
+        extent: extent,
+        url: configs["elevation"]["url"],
+        name: configs["elevation"]["name"],
+        crs: extent.crs,
+        heightMapWidth: 256,
+        format: configs["elevation"]["format"],
+      }),
+    })
   );
-
-  udvizBrowser.addBaseMapLayer(
-    configs["base_maps"][0],
-    frame3DPlanar.itownsView,
-    extent
-  );
-
-  udvizBrowser.addElevationLayer(
-    configs["elevation"],
-    frame3DPlanar.itownsView,
-    extent
-  );
-
-  // //// ABOUT MODULE
-  const about = new udvizBrowser.Widget.AboutWindow(configs["about"]);
-  app.addWidgetView("about", about);
-
-  // //// HELP MODULE
-  new udvizBrowser.Widget.HelpWindow(configs["help"]); // => help window should be add with addWidgetView
-
-  // //// 3DTILES DEBUG
-  const debug3dTilesWindow = new udvizBrowser.Widget.Debug3DTilesWindow(
-    app.getFrame3DPlanar().getLayerManager()
-  );
-  app.addWidgetView("3dtilesDebug", debug3dTilesWindow, {
-    name: "3DTiles Debug",
-  });
-
-  // //// CAMERA POSITIONER
-  const cameraPosition = new udvizBrowser.Widget.CameraPositionerView(
-    app.getFrame3DPlanar().getItownsView()
-  );
-  app.addWidgetView("cameraPositioner", cameraPosition);
-
-  // //// LAYER CHOICE MODULE
-  const layerChoice = new udvizBrowser.Widget.LayerChoice(
-    app.getFrame3DPlanar().getLayerManager()
-  );
-  app.addWidgetView("layerChoice", layerChoice);
-
-  // //// CITY OBJECTS PROVIDER
-  const cityObjectProvider = new udvizBrowser.Widget.CityObjectProvider(
-    app.getFrame3DPlanar().getLayerManager(),
-    configs['styles']
-  );
-
-
-  // //// CITY OBJECTS PROVIDER
-  const cityObjectProvider = new udvizBrowser.Widget.CityObjectProvider(
-    app.getFrame3DPlanar().getLayerManager(),
-    configs['styles']
-  );
-
-  // //// CITY OBJECTS MODULE
-  const cityObjectModule = new udvizBrowser.Widget.CityObjectModule(
-    cityObjectProvider,
-    configs['styles']
-  );
-  app.addWidgetView('cityObjects', cityObjectModule.view);
-
-  // TEMPORAL MODULES
-  let temporalProviders = [];
-  
-  const temporalModule1 = new udvizBrowser.Widget.TemporalModule(
-    app.getFrame3DPlanar().getLayerManager().tilesManagers[0],
-    configs['temporal']
-  );
-  
-  const temporalModule2 = new udvizBrowser.Widget.TemporalModule(
-    app.getFrame3DPlanar().getLayerManager().tilesManagers[1],
-    configs['temporal']
-  );
-
-  temporalProviders.push(temporalModule1.provider);
-  temporalProviders.push(temporalModule2.provider);
-
-  // //// SPARQL MODULE
-  const sparqlWorkspaceWidgetView = new udvizBrowser.Widget.Server.SparqlWorkspaceWidgetView(
-    new udvizBrowser.Widget.Server.SparqlEndpointResponseProvider(
-      configs['sparql_server']
-    ),
-    cityObjectProvider,
-    temporalProviders,
-    app.getFrame3DPlanar().getLayerManager(),
-    configs['sparql_widget']
-  );
-  app.addWidgetView('sparqlModule', sparqlWorkspaceWidgetView, {
-    name: 'SPARQL Query',
-  });
 });
