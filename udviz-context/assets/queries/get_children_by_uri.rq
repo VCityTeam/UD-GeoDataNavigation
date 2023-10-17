@@ -1,0 +1,6 @@
+prefix geov: <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/GeoVolumes/1.0/geovolumes/geovolumes#>
+SELECT *
+WHERE {
+  ?subject ?predicate ?object .
+  filter(?subject=<https://github.com/VCityTeam/UD-GeoDataNavigation/test1#LyonMetropole> && ?predicate = geov:children)
+}

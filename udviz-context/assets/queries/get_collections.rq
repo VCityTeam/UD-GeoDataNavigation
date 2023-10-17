@@ -1,0 +1,21 @@
+# Common prefixes
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs:   <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:    <http://www.w3.org/2002/07/owl#>
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#>
+PREFIX list:   <https://w3id.org/list#>
+PREFIX skos:   <http://www.w3.org/2004/02/skos/core#>
+PREFIX gml:    <http://www.opengis.net/gml#>
+PREFIX gmlowl: <http://www.opengis.net/ont/gml#>
+PREFIX units:  <http://www.opengis.net/def/uom/OGC/1.0/>
+PREFIX geo:    <http://www.opengis.net/ont/geosparql#>
+PREFIX geof:   <http://www.opengis.net/def/function/geosparql/>
+PREFIX strdf:  <http://strdf.di.uoa.gr/ontology#>
+PREFIX xlink:  <http://www.w3.org/1999/xlink#>
+
+prefix geov: <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/GeoVolumes/1.0/geovolumes/geovolumes#>
+SELECT ?subject ?predicate ?object
+WHERE {
+    ?subject ?predicate ?object;
+    filter(?predicate = geov:collections)
+  }

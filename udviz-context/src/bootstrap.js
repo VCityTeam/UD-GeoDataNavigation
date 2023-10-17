@@ -1,9 +1,11 @@
 /** @format */
 
 import { loadMultipleJSON, initScene } from "@ud-viz/utils_browser";
+import * as widgetSPARQL from "@ud-viz/widget_sparql"
 import * as proj4 from "proj4";
 import * as itowns from "itowns";
 import css from "./style.css";
+import { GeoVolumeSource } from "./Extensions/GeoVolume/Source/GeoVolumeSource";
 /* eslint-disable no-new */
 
 loadMultipleJSON([
@@ -17,8 +19,8 @@ loadMultipleJSON([
   "../assets/config/widget/about.json",
   "../assets/config/widget/help.json",
   "../assets/config/widget/temporal.json",
-  "../assets/config/widget/sparql_widget.json",
   "../assets/config/server/sparql_server.json",
+  "../assets/config/server/geovolume_server.json",
 ]).then((configs) => {
   // http://proj4js.org/
   // define a projection as a string and reference it that way
@@ -42,7 +44,6 @@ loadMultipleJSON([
   viewDomElement.classList.add("full_screen");
   document.body.appendChild(viewDomElement);
   const view = new itowns.PlanarView(viewDomElement, extent);
-
   // init scene 3D
   initScene(view.camera.camera3D, view.mainLoop.gfxEngine.renderer, view.scene);
 
@@ -86,4 +87,22 @@ loadMultipleJSON([
       }),
     })
   );
+
+  const sparqlEndPoint = new widgetSPARQL.SparqlEndpointResponseProvider(
+    configs['sparql_server']
+  );
+  
+  const geoVolumeSource = new GeoVolumeSource(
+    sparqlEndPoint,
+    view
+  );
+
+  // const sparqlWidget = new widgetSPARQL.SparqlQueryWindow(
+  //   ,
+  //   configs['sparql_widget']
+  // );
+  // sparqlWidget.domElement.classList.add('widget_sparql');
+
+  // viewDomElement.appendChild(sparqlWidget.domElement);
+
 });

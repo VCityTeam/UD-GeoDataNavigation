@@ -13,12 +13,15 @@
   "license": "ISC",
   "dependencies": {
     "@egjs/hammerjs": "^2.0.17",
-    "@ud-viz/utils_browser": "4.0.0",
+    "@ud-viz/utils_browser": "./UD-Viz/packages/utils_browser",
+    "@ud-viz/widget_sparql":"./UD-Viz/packages/widget_sparql",
     "buffer": "^6.0.3",
     "keycharm": "^0.4.0",
     "timsort": "^0.3.0",
     "uuid": "^8.3.2",
-    "vis-util": "^5.0.2"
+    "vis-util": "^5.0.2",
+    "box-intersect": "^1.0.2",
+    "jquery": "3.6.3"
   },
   "devDependencies": {
     "child-process-promise": "^2.2.1",
