@@ -1,23 +1,23 @@
 {
-  "height": 500,
-  "width": 500,
-  "fontSize": 4,
+  "height": 200,
+  "width": 200,
+  "fontSize": 8,
   "queries": [
     {
-      "title": "Get Children",
-      "formats": {
-        "graph": "Graph",
-        "json": "JSON"
-      },
-      "filepath": "./assets/queries/get_children_by_uri.rq"
+      "title": "Select Buildings from Version (2012)",
+      "filepath": "./assets/queries/allBuildings.rq"
     },
     {
-      "title": "Get Collections",
-      "formats": {
-        "graph": "Graph",
-        "json": "JSON"
-      },
-      "filepath": "./assets/queries/get_collections.rq"
+      "title": "Select Building by ID",
+      "filepath": "./assets/queries/buildingByIDQuery.rq"
+    },
+    {
+      "title": "Select Slabs from Building",
+      "filepath": "./assets/queries/ifcBuildingByIDQuery.rq"
+    },
+    {
+      "title": "Select hierarchy from Building",
+      "filepath": "./assets/queries/ifcHierarchy.rq"
     }
   ],
   "namespaceLabels": {

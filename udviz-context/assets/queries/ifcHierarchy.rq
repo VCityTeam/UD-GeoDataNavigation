@@ -1,0 +1,64 @@
+PREFIX ifc:     <http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT ?subject ?subjectType ?predicate ?object ?objectType
+WHERE {
+  {
+  BIND(<http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#relatedObjects_IfcRelDecomposes> as ?predicate)
+  BIND(<http://linkedbuildingdata.net/ifc/resources20230131_095921/IfcBuilding_110> as ?subject)
+  ?subject ^<http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#relatingObject_IfcRelDecomposes> ?s .
+  ?s ?predicate ?object .
+  ?subject a ?subjectType .
+      ?object a ?objectType
+  }
+  UNION
+    {
+  BIND(<http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#globalId_IfcRoot> as ?predicate)
+  BIND(<http://linkedbuildingdata.net/ifc/resources20230131_095921/IfcBuilding_110> as ?subject)
+  BIND("GUID" as ?objectType) 
+  ?subject ^<http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#relatingObject_IfcRelDecomposes> ?o ;
+  			?predicate ?ob .
+      ?ob <https://w3id.org/express#hasString> ?object .
+  ?subject a ?subjectType . 
+       
+  }
+    UNION
+    {
+  	BIND(<http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#globalId_IfcRoot> as ?predicate)
+    BIND("GUID" as ?objectType)
+ 	<http://linkedbuildingdata.net/ifc/resources20230131_095921/IfcBuilding_110> ^<http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#relatingObject_IfcRelDecomposes> ?_o1 .
+  	?_o1 <http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#relatedObjects_IfcRelDecomposes> ?subject .
+      ?subject ?predicate ?id .
+      ?id <https://w3id.org/express#hasString> ?object .
+  ?subject a ?subjectType
+  }
+    UNION
+  {
+  BIND(<http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#relatedObjects_IfcRelDecomposes> as ?p)
+  BIND(<http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#relatedElements_IfcRelContainedInSpatialStructure> as ?predicate)
+  BIND(<http://linkedbuildingdata.net/ifc/resources20230131_095921/IfcBuilding_110> as ?s)
+  ?s ^<http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#relatingObject_IfcRelDecomposes> ?o.
+  ?o ?p ?subject .
+  ?subject ^<http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#relatingStructure_IfcRelContainedInSpatialStructure> ?ob .
+  ?ob ?predicate ?object .
+                 ?object a ?objectType .
+                        
+  ?subject a ?subjectType   
+  FILTER(?objectType = <http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#IfcWindow>)
+  }
+  UNION
+  {
+  BIND(<http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#globalId_IfcRoot> as ?predicate)
+  BIND("GUID" as ?objectType)
+  <http://linkedbuildingdata.net/ifc/resources20230131_095921/IfcBuilding_110>  ^<http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#relatingObject_IfcRelDecomposes> ?_o1.
+  ?_o1 <http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#relatedObjects_IfcRelDecomposes> ?s .
+  ?s ^<http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#relatingStructure_IfcRelContainedInSpatialStructure> ?_o2 .
+  ?_o2 <http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#relatedElements_IfcRelContainedInSpatialStructure> ?subject .
+    ?subject  ?predicate ?_o4 .
+  ?_o4 <https://w3id.org/express#hasString> ?object .
+    
+               ?subject a ?subjectType .
+      
+      FILTER(?subjectType = <http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#IfcWindow>)
+  }
+}
+

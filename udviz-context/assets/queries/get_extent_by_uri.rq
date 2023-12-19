@@ -4,5 +4,5 @@ WHERE {
 	?subject ?predicate ?object .
   		?object geov:bbox ?bbox.  		
   		?object geov:crs ?crs.
-    	FILTER(?subject=<https://github.com/VCityTeam/UD-GeoDataNavigation/test1#LyonMetropole> && ?predicate = geov:spatial)
+    	FILTER(?subject=<$URI> && ?predicate = geov:spatial)
 }

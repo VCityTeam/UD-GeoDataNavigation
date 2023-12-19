@@ -61,6 +61,12 @@ module.exports = (env) => {
       hot: true,
     },
     plugins: plugins,
+    resolve: {
+      modules: [
+        'node_modules', // The default
+        'src',
+      ],
+    },
   };
 
   if (debugBuild) config.devtool = 'source-map';

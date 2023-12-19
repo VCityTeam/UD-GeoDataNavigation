@@ -2,5 +2,5 @@ prefix geov: <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Geo
 SELECT *
 WHERE {
 	?subject ?predicate ?object .
-    	FILTER(?subject=<https://github.com/VCityTeam/UD-GeoDataNavigation/test1#LyonMetropole> && ?predicate=geov:title)
+    	FILTER(?subject=<$URI> && ?predicate=geov:title)
 }

@@ -46,7 +46,7 @@ mappings:
     s: data:spatial_extent_$(id)
     po:
       - [a, geov:SpatialExtent]
-      - [geov:bbox_max, $(spatial.bbox)]
+      - [geov:bbox, $(spatial.bbox)]
       - [geov:crs, $(spatial.crs)]
 
   temporal_extents:

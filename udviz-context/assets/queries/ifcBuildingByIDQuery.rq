@@ -1,0 +1,24 @@
+PREFIX express: <https://w3id.org/express#>
+PREFIX ifc:     <http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#>
+
+
+SELECT ?subject ?predicate ?object
+WHERE {
+{
+  ?subject  a  ifc:IfcBuilding ;
+    a ?subjectType ;
+    ?predicate ?object ;
+    ifc:globalId_IfcRoot ?id .
+  ?id express:hasString "$ID" .
+}
+UNION {
+  ?s  a  ifc:IfcBuilding ;
+    a ?subjectType ;
+    ?p ?subject ;
+    ifc:globalId_IfcRoot ?id .
+  ?id express:hasString "$ID" .
+  ?subject ?predicate ?object .
+}
+  }
+
+LIMIT 30

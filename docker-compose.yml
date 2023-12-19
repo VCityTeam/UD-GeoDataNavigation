@@ -1,14 +1,10 @@
 version: '3.0'
-volumes:
-  postgres_volume:
-    name: ${POSTGRES_VOLUME_NAME}
 services:
   blazegraph:
-    build:
-      context: ./blazegraph-context
+    image: vcity/blazegraph-cors
     hostname: blazegraph
     ports:
-      - "${BLAZEGRAPH_PORT}:8080"
+      - "${BLAZEGRAPH_PORT}:8080" 
   # udviz:
   #   build:
   #     context: ./ud-viz-context

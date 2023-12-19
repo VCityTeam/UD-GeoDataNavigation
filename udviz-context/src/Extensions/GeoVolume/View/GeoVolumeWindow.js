@@ -37,17 +37,24 @@ export class GeoVolumeWindow extends THREE.EventDispatcher {
 
   focusGeovolume() {
     if (this.selectedGeoVolume) {
-      let box3 = new THREE.Box3().setFromObject(
-        this.selectedGeoVolume.bboxGeom
+      let bbox = this.selectedGeoVolume.reprojectBbox(this.selectedGeoVolume.extent.bbox, this.selectedGeoVolume.crs);
+      let box3 = new THREE.Box3(
+        new THREE.Vector3(
+          bbox[0],
+          bbox[1],
+          bbox[2]
+        ),
+        new THREE.Vector3(
+          bbox[3],
+          bbox[4],
+          bbox[5]
+        )
       );
-      this.itownsView.resize();
-
       let size = new THREE.Vector3();
       box3.getSize(size);
       const maxDim = Math.max(size.x, size.y);
       const fov = this.itownsView.camera.camera3D.fov * (Math.PI / 180);
       let cameraZ = (maxDim / 2 / Math.tan(fov / 2)) * 1.2;
-
       let position = new THREE.Vector3(
         this.selectedGeoVolume.centroid[0],
         this.selectedGeoVolume.centroid[1],
@@ -57,12 +64,13 @@ export class GeoVolumeWindow extends THREE.EventDispatcher {
         new THREE.Vector3(1, 0, 0),
         0
       );
+      this.itownsView.resize();
       this.itownsView.controls.initiateTravel(position, "auto", angle, true);
     }
   }
 
   changeDisplayedGeovolume(geovolume) {
-    if (!this.selectedGeoVolume || geovolume.id != this.selectedGeoVolume.id) {
+    if (!this.selectedGeoVolume || geovolume.title != this.selectedGeoVolume.title) {
       this.displayGeoVolumeInHTML(geovolume);
       if (this.selectedGeoVolume) {
         this.selectedGeoVolume.deleteBbox(this.itownsView.scene);
@@ -90,10 +98,10 @@ export class GeoVolumeWindow extends THREE.EventDispatcher {
     let intersects = raycaster.intersectObjects(
       this.geoVolumeSource.getVisibleGeoVolumesBboxGeom()
     );
-    if (intersects.length > 0) {
+    if (intersects.length > 0 && intersects[0].object.isMesh) {
       if (
         !this.selectedGeoVolume ||
-        intersects[0].object.geoVolume.id != this.selectedGeoVolume.id
+        intersects[0].object.geoVolume.title != this.selectedGeoVolume.title
       ) {
         this.dispatchEvent({
           type: GeoVolumeWindow.SELECTED_GEOVOLUME_UPDATED,
@@ -108,7 +116,7 @@ export class GeoVolumeWindow extends THREE.EventDispatcher {
     this.geoVolumeSource.getgeoVolumes().then(() => {
       this.dispatchEvent({
         type: GeoVolumeWindow.SELECTED_GEOVOLUME_UPDATED,
-        message: this.geoVolumeSource.collection[0].children[0].children[0],
+        message: this.geoVolumeSource.collection[0],
       });
       this.itownsView.notifyChange();
     });
@@ -276,7 +284,7 @@ export class GeoVolumeWindow extends THREE.EventDispatcher {
   }
 
   deleteContents(geoVolume) {
-    for (let c of geoVolume.content) {
+    for (let c of geoVolume.contents) {
       this.delete3DTilesContent(c);
       this.updateShowButton(c);
     }
@@ -323,7 +331,7 @@ export class GeoVolumeWindow extends THREE.EventDispatcher {
   }
 
   writeGeoVolume(geovolume, htmlParent) {
-    if (geovolume.id && geovolume.links) {
+    if (geovolume.title && geovolume.links) {
       var li = document.createElement("div");
       li.className = "geovolume-el";
       var linkToSelf = "";
@@ -353,7 +361,7 @@ export class GeoVolumeWindow extends THREE.EventDispatcher {
       var a = document.createElement("a");
       a.href = linkToSelf;
       a.target = "_blank";
-      a.innerText = geovolume.id;
+      a.innerText = geovolume.title;
       div_name.appendChild(a);
       li.appendChild(div_name);
 
@@ -399,11 +407,11 @@ export class GeoVolumeWindow extends THREE.EventDispatcher {
         li.appendChild(childrenButton);
       }
 
-      if (geovolume.content.length > 0) {
+      if (geovolume.contents.length > 0) {
         var representationsList = document.createElement("ul");
         representationsList.className = "w3-ul";
-        for (let c of geovolume.content) {
-          c.id = geovolume.id + "_" + c.title;
+        for (let c of geovolume.contents) {
+          c.id = geovolume.title + "_" + c.title;
           var representationEl = document.createElement("li");
           representationEl.id = c.id;
           representationEl.className = "w3-bar";

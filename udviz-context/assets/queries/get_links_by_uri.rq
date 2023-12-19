@@ -6,5 +6,5 @@ WHERE {
     ?object geov:title ?title.
    	?object geov:type ?type.
   	?object geov:href ?href.
-  	FILTER(?subject=<https://github.com/VCityTeam/UD-GeoDataNavigation/test1#LyonMetropole> && ?predicate = geov:link)
+  	FILTER(?subject=<$URI> && ?predicate = geov:link)
 }

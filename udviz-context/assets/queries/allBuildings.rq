@@ -1,0 +1,14 @@
+PREFIX bldg: <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/2.0/building#>
+PREFIX core: <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/2.0/core#>
+SELECT ?subject ?subjectType ?predicate ?object ?objectType
+WHERE {
+  ?subject a core:CityModel ;
+    ?predicate ?object ;
+    a ?subjectType .
+  ?object a bldg:Building .
+  ?object a ?objectType .
+  
+  FILTER(?subjectType != owl:NamedIndividual)
+  FILTER(?objectType != owl:NamedIndividual)
+}
+LIMIT 30
