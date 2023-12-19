@@ -103,7 +103,7 @@
               "content": [
                 {
                   "rel": "alternate",
-                  "href": "http://localhost:8000/assets/layer/bth_doua/tileset.json",
+                  "href": "https://dataset-dl.liris.cnrs.fr/three-d-tiles-lyon-metropolis/Undated/chaufferie_doua_bth/tileset.json",
                   "type": "application/json+3dtiles",
                   "title": "ifc_3dtiles_bth",
                   "variantIdentifier": "file"

@@ -107,7 +107,7 @@ data:https%3A%2F%2Fdataset-dl.liris.cnrs.fr%2Fthree-d-tiles-lyon-metropolis%2F20
 data:http%3A%2F%2Flocalhost%3A8000%2Fassets%2Flayer%2Fbth_doua%2Ftileset.jsonfile rdf:type geov:Content ;
 	geov:title "ifc_3dtiles_bth" ;
 	geov:rel "alternate"^^geov:Rel ;
-	geov:href "http://localhost:8000/assets/layer/bth_doua/tileset.json"^^xsd:uri ;
+	geov:href "https://dataset-dl.liris.cnrs.fr/three-d-tiles-lyon-metropolis/Undated/chaufferie_doua_bth/tileset.json"^^xsd:uri ;
 	geov:type "application/json+3dtiles"^^geov:MimeType ;
 	geov:variantIdentifier "file" .
 
