@@ -144,7 +144,6 @@ export class GeoVolume {
 
   createBbox() {
     let bbox = this.extent.bbox;
-    
     bbox = this.reprojectBbox(bbox, this.crs);
     var geom = new THREE.BoxGeometry(
       bbox[3] - bbox[0],
@@ -160,15 +159,10 @@ export class GeoVolume {
     cube.material.opacity = 0.5;
     cube.position.set(this.centroid[0], this.centroid[1], this.centroid[2]);
     cube.updateMatrixWorld();
+
     var geo = new THREE.EdgesGeometry(cube.geometry); // or WireframeGeometry
     var mat = new THREE.LineBasicMaterial({ color: 0x000000 });
     var wireframe = new THREE.LineSegments(geo, mat);
-    wireframe.position.set(
-      this.centroid[0],
-      this.centroid[1],
-      this.centroid[2]
-    );
-    wireframe.updateMatrixWorld();
     cube.add(wireframe);
     wireframe.updateWorldMatrix(false, false);
     cube.geoVolume = this;
@@ -240,32 +234,16 @@ export class GeoVolume {
     );
   }
 
-  fillChildren() {
-    return new Promise((resolve) => {
-      loadTextFile("./assets/queries/get_children_by_uri.rq").then((result) => {
-        result = result.replace("$URI", this.uri);
-        this.sparqlProvider.querySparqlEndpointService(result).then((res) => {
-          let promises = [];
-          for (const triple of res.results.bindings) {
-            promises.push(
-              new GeoVolume(
-                this.sparqlProvider,
-                triple.object.value,
-                this.crs,
-                this
-              )
-            );
-          }
-          Promise.all(promises).then((children) => {
-            for(let child of children){
-              this.children.push(child);
-            }
-            resolve();
-          });
-        });
-      });
-    });
+  fillChildren(jsonChildren) {
+    let childrenArray = new Array();
+    if (jsonChildren) {
+      for (let child of jsonChildren) {
+        childrenArray.push(new GeoVolume(child, this.crs, this));
+      }
+    }
+    return childrenArray;
   }
+
   getContent(type = null) {
     if (type) {
       let content = new Array();
