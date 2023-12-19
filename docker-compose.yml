@@ -5,8 +5,8 @@ services:
     hostname: blazegraph
     ports:
       - "${BLAZEGRAPH_PORT}:8080" 
-  # udviz:
-  #   build:
-  #     context: ./ud-viz-context
-  #   ports:
-  #     - ${UD_VIZ_PORT}:80
+  udviz:
+    build:
+      context: ./udviz-context
+    ports:
+      - ${UD_VIZ_PORT}:8000

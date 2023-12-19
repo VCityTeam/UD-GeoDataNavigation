@@ -3,7 +3,6 @@ FROM ubuntu:focal
 LABEL maintainer "VCityTeam"
 LABEL source.repo "https://github.com/VCityTeam/UD-GeoDataNavigation"
 
-
 RUN apt-get update
 
 # Node version 18 is required. For its installation (on focal) refer to e.g.
