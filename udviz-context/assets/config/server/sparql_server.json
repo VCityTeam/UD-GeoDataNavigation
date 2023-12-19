@@ -1,5 +1,5 @@
 {
-  "url": "http://localhost:8001/blazegraph/",
+  "url": "https://blazegraph.vcityliris.data.alpha.grandlyon.com/blazegraph/",
   "url_parameters": "sparql?format=json&query=",
   "options": {}
 }

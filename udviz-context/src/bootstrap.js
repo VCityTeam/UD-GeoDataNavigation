@@ -90,10 +90,13 @@ loadMultipleJSON([
   let sparqlEndpointResponseProvider =
     new widgetSPARQL.SparqlEndpointResponseProvider(configs['sparql_server']);
 
+    console.log(sparqlEndpointResponseProvider);
+    
   const geoVolumeSource = new GeoVolumeSource(
     sparqlEndpointResponseProvider,
     view
   );
+
 
   geoVolumeSource.getgeoVolumes().then(() => {
     const geoVolumeWindow = new GeoVolumeWindow(geoVolumeSource, view);
